@@ -1,25 +1,25 @@
 from typing import Any
-from django.core.management.base import BaseCommand, CommandError, CommandParser
-from hw2_app.models import Client, Product, Order
+from django.core.management.base import BaseCommand, CommandParser
+from hw2_app.models import Customer, Product, Order
 
 
 class Command(BaseCommand):
     help = "Creates new order"
 
     def add_arguments(self, parser: CommandParser) -> None:
-        parser.add_argument("client_id", type=int, help="Client ID")
+        parser.add_argument("customer_id", type=int, help="Customer ID")
         parser.add_argument("product_id", type=int, help="Product ID")
-        parser.add_argument("total_amount", type=float, help="Total Amount")
+        parser.add_argument("total_price", type=float, help="Total price")
 
     def handle(self, *args, **kwargs):
-        client_id, product_id, total_amount = (
-            kwargs["client_id"],
+        customer_id, product_id, total_price = (
+            kwargs["customer_id"],
             kwargs["product_id"],
-            kwargs["total_amount"],
+            kwargs["total_price"],
         )
-        client = Client.objects.filter(pk=client_id).first()
-        if not client:
-            self.stdout.write(f"bad client id: {client_id}")
+        customer = Customer.objects.filter(pk=customer_id).first()
+        if not customer:
+            self.stdout.write(f"bad client id: {customer_id}")
             return
 
         product = Product.objects.filter(pk=product_id).first()
@@ -27,7 +27,7 @@ class Command(BaseCommand):
             self.stdout.write(f"bad product id: {product_id}")
             return
 
-        order = Order(client=client, total_amount=total_amount)
+        order = Order(customer=customer, total_price=total_price)
         order.save()
-        order.products.add(product)
+        order.product.add(product)
         self.stdout.write(f"{order}")
