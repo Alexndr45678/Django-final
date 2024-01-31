@@ -17,12 +17,12 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     price = models.DecimalField(max_digits=8, decimal_places=2)
-    quantity = models.IntegerField()
+    qty = models.IntegerField()
     img = models.CharField(max_length=255, default='')
     created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self) -> str:
-        return f'Product name: {self.name}, description: {self.description}, price: {self.price}, qty: {self.quantity}, added at: {self.created_at}'
+        return f'Product name: {self.name}, description: {self.description}, price: {self.price}, qty: {self.qty}, added at: {self.created_at}'
 
 
 class Order(models.Model):

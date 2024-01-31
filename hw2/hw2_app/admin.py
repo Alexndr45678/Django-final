@@ -11,9 +11,9 @@ class CustomerAdmin(admin.ModelAdmin):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ["id", "name", "price", "quantity", "created_at"]
+    list_display = ["id", "name", "price", "qty", "created_at"]
     list_filter = ["name", "price", "created_at"]
-    search_fields = ["name", "price", "quantity"]
+    search_fields = ["name", "price", "qty"]
 
 
 class OrderAdmin(admin.ModelAdmin):
